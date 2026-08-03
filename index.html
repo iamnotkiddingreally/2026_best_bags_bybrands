@@ -131,6 +131,291 @@
   .field-row input[type="text"]::placeholder{color:#5c5646; font-style:italic;}
   .field-row input[type="text"]:focus{border-color:var(--gold);}
 
+  .thumb-preview{
+    display:none;
+    margin:10px 0 0 68px;
+    max-width:220px;
+    border-radius:2px;
+    overflow:hidden;
+    border:1px solid var(--card-edge);
+  }
+  .thumb-preview img{
+    display:block; width:100%; height:auto;
+  }
+  .thumb-error{
+    font-size:11px; color:var(--wine); margin:8px 0 0 68px; display:none;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">2026</p>
+  <h1>Best Designer Bag by Brands (r/handbags Favs)</h1>
+  <p class="sub">Running order &amp; results — a new house every 2 days, starting <b>Mon, Aug 10</b></p>
+
+  <div class="progress-row">
+    <span class="progress-label" id="progressLabel">0 / 24 decided</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="program" id="program"></div>
+</div>
+
+<script>
+const ROUNDS = [
+  {n:1,  date:"Mon, Aug 10", brand:"Hermès", winner:"", image:""},
+  {n:2,  date:"Wed, Aug 12", brand:"Chanel", winner:"", image:""},
+  {n:3,  date:"Fri, Aug 14", brand:"Dior", winner:"", image:""},
+  {n:4,  date:"Sun, Aug 16", brand:"Goyard", winner:"", image:""},
+  {n:5,  date:"Tue, Aug 18", brand:"Gucci", winner:"", image:""},
+  {n:6,  date:"Thu, Aug 20", brand:"Fendi", winner:"", image:""},
+  {n:7,  date:"Sat, Aug 22", brand:"Celine", winner:"", image:""},
+  {n:8,  date:"Mon, Aug 24", brand:"Prada", winner:"", image:""},
+  {n:9,  date:"Wed, Aug 26", brand:"Bottega Veneta", winner:"", image:""},
+  {n:10, date:"Fri, Aug 28", brand:"Louis Vuitton", winner:"", image:""},
+  {n:11, date:"Sun, Aug 30", brand:"The Row", winner:"", image:""},
+  {n:12, date:"Tue, Sep 1",  brand:"Ferragamo", winner:"", image:""},
+  {n:13, date:"Thu, Sep 3",  brand:"Givenchy", winner:"", image:""},
+  {n:14, date:"Sat, Sep 5",  brand:"Miu Miu", winner:"", image:""},
+  {n:15, date:"Mon, Sep 7",  brand:"Burberry", winner:"", image:""},
+  {n:16, date:"Wed, Sep 9",  brand:"YSL", winner:"", image:""},
+  {n:17, date:"Fri, Sep 11", brand:"Loewe", winner:"", image:""},
+  {n:18, date:"Sun, Sep 13", brand:"Chloé", winner:"", image:""},
+  {n:19, date:"Tue, Sep 15", brand:"Tod's", winner:"", image:""},
+  {n:20, date:"Thu, Sep 17", brand:"Coach", winner:"", image:""},
+  {n:21, date:"Sat, Sep 19", brand:"Polene", winner:"", image:""},
+  {n:22, date:"Mon, Sep 21", brand:"Community Pick #1", tbd:true, winner:"", image:""},
+  {n:23, date:"Wed, Sep 23", brand:"Community Pick #2", tbd:true, winner:"", image:""},
+  {n:24, date:"Fri, Sep 25", brand:"Community Pick #3", tbd:true, winner:"", image:""},
+];
+
+const program = document.getElementById('program');
+const progressFill = document.getElementById('progressFill');
+const progressLabel = document.getElementById('progressLabel');
+
+function updateProgress(){
+  const inputs = document.querySelectorAll('.winner-input');
+  let filled = 0;
+  inputs.forEach(i => { if(i.value.trim()) filled++; });
+  progressLabel.textContent = `${filled} / ${ROUNDS.length} decided`;
+  progressFill.style.width = `${(filled/ROUNDS.length)*100}%`;
+}
+
+function buildRow(r){
+  const div = document.createElement('div');
+  div.className = 'round';
+  div.id = 'round-' + r.n;
+  div.innerHTML = `
+    <span class="num-dot"></span>
+    <div class="row-top">
+      <span class="meta"><span class="rd">Round ${r.n}</span> · ${r.date}</span>
+    </div>
+    <div class="brand ${r.tbd ? 'tbd' : ''}">${r.brand}</div>
+
+    <div class="field-row">
+      <span class="field-label">Winner</span>
+      <input class="winner-input" type="text" placeholder="Type winner name…" value="${r.winner || ''}">
+    </div>
+    <div class="field-row">
+      <span class="field-label">Photo</span>
+      <input class="image-input" type="text" placeholder="Paste an image link…" value="${r.image || ''}">
+    </div>
+    <div class="thumb-preview"><img alt="Winning bag photo"></div>
+    <div class="thumb-error">Couldn't load that image link.</div>
+  `;
+  return div;
+}
+
+function wireImagePreview(roundEl, input){
+  const preview = roundEl.querySelector('.thumb-preview');
+  const img = preview.querySelector('img');
+  const errorMsg = roundEl.querySelector('.thumb-error');
+
+  function render(url){
+    if(!url.trim()){
+      preview.style.display = 'none';
+      errorMsg.style.display = 'none';
+      return;
+    }
+    img.onload = () => {
+      preview.style.display = 'block';
+      errorMsg.style.display = 'none';
+    };
+    img.onerror = () => {
+      preview.style.display = 'none';
+      errorMsg.style.display = 'block';
+    };
+    img.src = url.trim();
+  }
+
+  render(input.value);
+  input.addEventListener('input', () => render(input.value));
+}
+
+function init(){
+  ROUNDS.forEach(r => program.appendChild(buildRow(r)));
+
+  const winnerInputs = document.querySelectorAll('.winner-input');
+  const imageInputs = document.querySelectorAll('.image-input');
+
+  winnerInputs.forEach(input => {
+    input.addEventListener('input', () => {
+      input.closest('.round').classList.toggle('done', input.value.trim().length > 0);
+      updateProgress();
+    });
+    if(input.value.trim()) {
+      input.closest('.round').classList.add('done');
+    }
+  });
+
+  imageInputs.forEach(input => {
+    wireImagePreview(input.closest('.round'), input);
+  });
+
+  updateProgress();
+}
+
+init();
+</script>
+</body>
+</html>
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Best Bag Series — Running Order</title>
+<style>
+  :root{
+    --ink:#15130f;
+    --card:#1e1a13;
+    --card-edge:#332c1f;
+    --ivory:#f3ecdc;
+    --taupe:#a79a83;
+    --gold:#c2a06a;
+    --gold-dim:#8a7147;
+    --wine:#7c2f3c;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ink);
+    background-image:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(194,160,106,0.08), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(124,47,60,0.10), transparent 55%);
+    color:var(--ivory);
+    font-family:'Inter','Helvetica Neue',Arial,sans-serif;
+    padding:56px 20px 80px;
+  }
+  .wrap{max-width:780px;margin:0 auto;}
+
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:.28em;
+    font-size:11px;
+    color:var(--gold);
+    text-align:center;
+    margin:0 0 14px;
+  }
+  h1{
+    font-family:Didot,'Bodoni MT','Playfair Display',Georgia,serif;
+    font-weight:400;
+    font-size:clamp(34px,6vw,54px);
+    text-align:center;
+    margin:0 0 8px;
+    letter-spacing:.01em;
+    color:var(--ivory);
+  }
+  .sub{
+    text-align:center;
+    color:var(--taupe);
+    font-size:14px;
+    letter-spacing:.02em;
+    margin:0 0 46px;
+  }
+  .sub b{color:var(--ivory); font-weight:600;}
+
+  .progress-row{
+    display:flex; align-items:center; gap:12px;
+    max-width:520px; margin:0 auto 56px;
+  }
+  .progress-track{
+    flex:1; height:2px; background:var(--card-edge); position:relative; border-radius:2px; overflow:hidden;
+  }
+  .progress-fill{
+    height:100%; background:linear-gradient(90deg,var(--gold-dim),var(--gold)); width:0%;
+    transition:width .4s ease;
+  }
+  .progress-label{
+    font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--taupe); white-space:nowrap;
+  }
+
+  .program{position:relative; padding-left:38px;}
+  .program::before{
+    content:"";
+    position:absolute; left:9px; top:10px; bottom:10px; width:1px;
+    background:linear-gradient(to bottom, var(--gold-dim), var(--card-edge) 90%);
+  }
+  .round{
+    position:relative;
+    margin-bottom:14px;
+    background:var(--card);
+    border:1px solid var(--card-edge);
+    border-radius:3px;
+    padding:18px 22px 20px 24px;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .round:hover{border-color:var(--gold-dim);}
+  .round.done{background:#211c14;}
+  .round.done .num-dot{background:var(--gold); border-color:var(--gold);}
+  .num-dot{
+    position:absolute; left:-33px; top:24px;
+    width:11px; height:11px; border-radius:50%;
+    background:var(--ink); border:1px solid var(--gold-dim);
+  }
+  .row-top{
+    display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;
+  }
+  .meta{
+    font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--taupe);
+  }
+  .meta .rd{color:var(--gold);}
+  .brand{
+    font-family:Didot,'Bodoni MT','Playfair Display',Georgia,serif;
+    font-size:23px;
+    margin:4px 0 14px;
+    color:var(--ivory);
+    letter-spacing:.01em;
+  }
+  .brand.tbd{color:var(--taupe); font-style:italic;}
+
+  .field-row{
+    display:flex; align-items:center; gap:10px; margin-bottom:8px;
+  }
+  .field-row:last-child{margin-bottom:0;}
+  .field-label{
+    font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-dim);
+    white-space:nowrap; width:58px; flex-shrink:0;
+  }
+  .field-row input[type="text"]{
+    flex:1;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--card-edge);
+    color:var(--ivory);
+    font-size:14px;
+    font-family:inherit;
+    padding:5px 2px;
+    outline:none;
+    transition:border-color .2s ease;
+    min-width:0;
+  }
+  .field-row input[type="text"]::placeholder{color:#5c5646; font-style:italic;}
+  .field-row input[type="text"]:focus{border-color:var(--gold);}
+
   .save-flash{
     font-size:10px; color:var(--gold); opacity:0; transition:opacity .3s ease; white-space:nowrap;
   }
@@ -358,4 +643,4 @@ async function init(){
 init();
 </script>
 </body>
-</html>
+</html> -->
