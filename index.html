@@ -107,33 +107,25 @@
   }
   .brand.tbd{color:var(--taupe); font-style:italic;}
 
-  .field-row{
-    display:flex; align-items:center; gap:10px; margin-bottom:8px;
-  }
-  .field-row:last-child{margin-bottom:0;}
-  .field-label{
-    font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-dim);
-    white-space:nowrap; width:58px; flex-shrink:0;
-  }
-  .field-row input[type="text"]{
-    flex:1;
-    background:transparent;
-    border:none;
-    border-bottom:1px solid var(--card-edge);
-    color:var(--ivory);
+  .field{
+    margin-bottom:8px;
     font-size:14px;
-    font-family:inherit;
-    padding:5px 2px;
-    outline:none;
-    transition:border-color .2s ease;
-    min-width:0;
+    color:var(--ivory);
   }
-  .field-row input[type="text"]::placeholder{color:#5c5646; font-style:italic;}
-  .field-row input[type="text"]:focus{border-color:var(--gold);}
-
+  .field-label{
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--gold-dim);
+    margin-right:8px;
+  }
+  .placeholder{
+    color:#5c5646;
+    font-style:italic;
+  }
   .thumb-preview{
     display:none;
-    margin:10px 0 0 68px;
+    margin:10px 0 0 0;
     max-width:220px;
     border-radius:2px;
     overflow:hidden;
@@ -143,7 +135,7 @@
     display:block; width:100%; height:auto;
   }
   .thumb-error{
-    font-size:11px; color:var(--wine); margin:8px 0 0 68px; display:none;
+    font-size:11px; color:var(--wine); margin:8px 0 0 0; display:none;
   }
 </style>
 </head>
@@ -154,7 +146,7 @@
   <p class="sub">Running order &amp; results — a new house every 2 days, starting <b>Mon, Aug 10</b></p>
 
   <div class="progress-row">
-    <span class="progress-label" id="progressLabel">0 / 24 decided</span>
+    <span class="progress-label" id="progressLabel">0 / 25 decided</span>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
   </div>
 
@@ -163,30 +155,31 @@
 
 <script>
 const ROUNDS = [
-  {n:1,  date:"Mon, Aug 10", brand:"Hermès", winner:"", image:""},
-  {n:2,  date:"Wed, Aug 12", brand:"Chanel", winner:"", image:""},
-  {n:3,  date:"Fri, Aug 14", brand:"Dior", winner:"", image:""},
-  {n:4,  date:"Sun, Aug 16", brand:"Goyard", winner:"", image:""},
-  {n:5,  date:"Tue, Aug 18", brand:"Gucci", winner:"", image:""},
-  {n:6,  date:"Thu, Aug 20", brand:"Fendi", winner:"", image:""},
-  {n:7,  date:"Sat, Aug 22", brand:"Celine", winner:"", image:""},
-  {n:8,  date:"Mon, Aug 24", brand:"Prada", winner:"", image:""},
-  {n:9,  date:"Wed, Aug 26", brand:"Bottega Veneta", winner:"", image:""},
-  {n:10, date:"Fri, Aug 28", brand:"Louis Vuitton", winner:"", image:""},
-  {n:11, date:"Sun, Aug 30", brand:"The Row", winner:"", image:""},
-  {n:12, date:"Tue, Sep 1",  brand:"Ferragamo", winner:"", image:""},
-  {n:13, date:"Thu, Sep 3",  brand:"Givenchy", winner:"", image:""},
-  {n:14, date:"Sat, Sep 5",  brand:"Miu Miu", winner:"", image:""},
-  {n:15, date:"Mon, Sep 7",  brand:"Burberry", winner:"", image:""},
-  {n:16, date:"Wed, Sep 9",  brand:"YSL", winner:"", image:""},
-  {n:17, date:"Fri, Sep 11", brand:"Loewe", winner:"", image:""},
-  {n:18, date:"Sun, Sep 13", brand:"Chloé", winner:"", image:""},
-  {n:19, date:"Tue, Sep 15", brand:"Tod's", winner:"", image:""},
-  {n:20, date:"Thu, Sep 17", brand:"Coach", winner:"", image:""},
-  {n:21, date:"Sat, Sep 19", brand:"Polene", winner:"", image:""},
-  {n:22, date:"Mon, Sep 21", brand:"Community Pick #1", tbd:true, winner:"", image:""},
-  {n:23, date:"Wed, Sep 23", brand:"Community Pick #2", tbd:true, winner:"", image:""},
-  {n:24, date:"Fri, Sep 25", brand:"Community Pick #3", tbd:true, winner:"", image:""},
+  {n:1,  date:"Mon, Aug 10", brand:"Hermès", winner:"Winner name here", image:"Photo link here"},
+  {n:2,  date:"Wed, Aug 12", brand:"Chanel", winner:"Winner name here", image:"Photo link here"},
+  {n:3,  date:"Fri, Aug 14", brand:"Dior", winner:"Winner name here", image:"Photo link here"},
+  {n:4,  date:"Sun, Aug 16", brand:"Goyard", winner:"Winner name here", image:"Photo link here"},
+  {n:5,  date:"Tue, Aug 18", brand:"Gucci", winner:"Winner name here", image:"Photo link here"},
+  {n:6,  date:"Thu, Aug 20", brand:"Fendi", winner:"Winner name here", image:"Photo link here"},
+  {n:7,  date:"Sat, Aug 22", brand:"Celine", winner:"Winner name here", image:"Photo link here"},
+  {n:8,  date:"Mon, Aug 24", brand:"Prada", winner:"Winner name here", image:"Photo link here"},
+  {n:9,  date:"Wed, Aug 26", brand:"Bottega Veneta", winner:"Winner name here", image:"Photo link here"},
+  {n:10, date:"Fri, Aug 28", brand:"Louis Vuitton", winner:"Winner name here", image:"Photo link here"},
+  {n:11, date:"Sun, Aug 30", brand:"The Row", winner:"Winner name here", image:"Photo link here"},
+  {n:12, date:"Tue, Sep 1",  brand:"Ferragamo", winner:"Winner name here", image:"Photo link here"},
+  {n:13, date:"Thu, Sep 3",  brand:"Givenchy", winner:"Winner name here", image:"Photo link here"},
+  {n:14, date:"Sat, Sep 5",  brand:"Miu Miu", winner:"Winner name here", image:"Photo link here"},
+  {n:15, date:"Mon, Sep 7",  brand:"Burberry", winner:"Winner name here", image:"Photo link here"},
+  {n:16, date:"Wed, Sep 9",  brand:"YSL", winner:"Winner name here", image:"Photo link here"},
+  {n:17, date:"Fri, Sep 11", brand:"Loewe", winner:"Winner name here", image:"Photo link here"},
+  {n:18, date:"Sun, Sep 13", brand:"Chloé", winner:"Winner name here", image:"Photo link here"},
+  {n:19, date:"Tue, Sep 15", brand:"Tod's", winner:"Winner name here", image:"Photo link here"},
+  {n:20, date:"Thu, Sep 17", brand:"Coach", winner:"Winner name here", image:"Photo link here"},
+  {n:21, date:"Sat, Sep 19", brand:"Polene", winner:"Winner name here", image:"Photo link here"},
+  {n:22, date:"Mon, Sep 21", brand:"Community Pick #1", tbd:true, winner:"Winner name here", image:"Photo link here"},
+  {n:23, date:"Wed, Sep 23", brand:"Community Pick #2", tbd:true, winner:"Winner name here", image:"Photo link here"},
+  {n:24, date:"Fri, Sep 25", brand:"Community Pick #3", tbd:true, winner:"Winner name here", image:"Photo link here"},
+  {n:25, date:"Sun, Sep 27", brand:"Community Pick #4", tbd:true, winner:"Winner name here", image:"Photo link here"},
 ];
 
 const program = document.getElementById('program');
@@ -194,11 +187,8 @@ const progressFill = document.getElementById('progressFill');
 const progressLabel = document.getElementById('progressLabel');
 
 function updateProgress(){
-  const inputs = document.querySelectorAll('.winner-input');
-  let filled = 0;
-  inputs.forEach(i => { if(i.value.trim()) filled++; });
-  progressLabel.textContent = `${filled} / ${ROUNDS.length} decided`;
-  progressFill.style.width = `${(filled/ROUNDS.length)*100}%`;
+  progressLabel.textContent = `0 / ${ROUNDS.length} decided`;
+  progressFill.style.width = `0%`;
 }
 
 function buildRow(r){
@@ -212,66 +202,20 @@ function buildRow(r){
     </div>
     <div class="brand ${r.tbd ? 'tbd' : ''}">${r.brand}</div>
 
-    <div class="field-row">
+    <div class="field">
       <span class="field-label">Winner</span>
-      <input class="winner-input" type="text" placeholder="Type winner name…" value="${r.winner || ''}">
+      <span class="placeholder">${r.winner}</span>
     </div>
-    <div class="field-row">
+    <div class="field">
       <span class="field-label">Photo</span>
-      <input class="image-input" type="text" placeholder="Paste an image link…" value="${r.image || ''}">
+      <span class="placeholder">${r.image}</span>
     </div>
-    <div class="thumb-preview"><img alt="Winning bag photo"></div>
-    <div class="thumb-error">Couldn't load that image link.</div>
   `;
   return div;
 }
 
-function wireImagePreview(roundEl, input){
-  const preview = roundEl.querySelector('.thumb-preview');
-  const img = preview.querySelector('img');
-  const errorMsg = roundEl.querySelector('.thumb-error');
-
-  function render(url){
-    if(!url.trim()){
-      preview.style.display = 'none';
-      errorMsg.style.display = 'none';
-      return;
-    }
-    img.onload = () => {
-      preview.style.display = 'block';
-      errorMsg.style.display = 'none';
-    };
-    img.onerror = () => {
-      preview.style.display = 'none';
-      errorMsg.style.display = 'block';
-    };
-    img.src = url.trim();
-  }
-
-  render(input.value);
-  input.addEventListener('input', () => render(input.value));
-}
-
 function init(){
   ROUNDS.forEach(r => program.appendChild(buildRow(r)));
-
-  const winnerInputs = document.querySelectorAll('.winner-input');
-  const imageInputs = document.querySelectorAll('.image-input');
-
-  winnerInputs.forEach(input => {
-    input.addEventListener('input', () => {
-      input.closest('.round').classList.toggle('done', input.value.trim().length > 0);
-      updateProgress();
-    });
-    if(input.value.trim()) {
-      input.closest('.round').classList.add('done');
-    }
-  });
-
-  imageInputs.forEach(input => {
-    wireImagePreview(input.closest('.round'), input);
-  });
-
   updateProgress();
 }
 
