@@ -166,8 +166,8 @@
 </head>
 <body>
 <div class="wrap">
-  <p class="eyebrow">A Reddit Series</p>
-  <h1>The Best Bag</h1>
+  <p class="eyebrow">2026</p>
+  <h1>Best Designer Bag by Brands (r/handbags Favs) </h1>
   <p class="sub">Running order &amp; results — a new house every 2 days, starting <b>Mon, Aug 10</b></p>
 
   <div class="progress-row">
@@ -206,6 +206,9 @@ const ROUNDS = [
   {n:21, date:"Sat, Sep 19", brand:"Polene"},
   {n:22, date:"Mon, Sep 21", brand:"Community Pick #1", tbd:true},
   {n:23, date:"Wed, Sep 23", brand:"Community Pick #2", tbd:true},
+  {n:23, date:"Fri, Sep 25", brand:"Community Pick #3", tbd:true},
+  {n:23, date:"Sun, Sep 27", brand:"Community Pick #4", tbd:true},
+  
 ];
 
 const program = document.getElementById('program');
@@ -336,20 +339,20 @@ async function init(){
     });
   });
 
-  document.getElementById('resetBtn').addEventListener('click', async () => {
-    if(!confirm('Clear every saved winner and photo?')) return;
-    for(const input of winnerInputs){
-      input.value = "";
-      await saveValue(input.dataset.key, "");
-      input.closest('.round').classList.remove('done');
-    }
-    for(const input of imageInputs){
-      input.value = "";
-      await saveValue(input.dataset.key, "");
-      input._render("");
-    }
-    updateProgress();
-  });
+  // document.getElementById('resetBtn').addEventListener('click', async () => {
+  //   if(!confirm('Clear every saved winner and photo?')) return;
+  //   for(const input of winnerInputs){
+  //     input.value = "";
+  //     await saveValue(input.dataset.key, "");
+  //     input.closest('.round').classList.remove('done');
+  //   }
+  //   for(const input of imageInputs){
+  //     input.value = "";
+  //     await saveValue(input.dataset.key, "");
+  //     input._render("");
+  //   }
+  //   updateProgress();
+  // });
 }
 
 init();
