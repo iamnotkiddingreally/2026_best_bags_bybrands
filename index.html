@@ -54,24 +54,45 @@
   .sub b{color:var(--ivory); font-weight:600;}
 
   .progress-row{
-    display:flex; align-items:center; gap:12px;
-    max-width:520px; margin:0 auto 56px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    max-width:520px;
+    margin:0 auto 56px;
   }
   .progress-track{
-    flex:1; height:2px; background:var(--card-edge); position:relative; border-radius:2px; overflow:hidden;
+    flex:1;
+    height:2px;
+    background:var(--card-edge);
+    position:relative;
+    border-radius:2px;
+    overflow:hidden;
   }
   .progress-fill{
-    height:100%; background:linear-gradient(90deg,var(--gold-dim),var(--gold)); width:0%;
+    height:100%;
+    background:linear-gradient(90deg,var(--gold-dim),var(--gold));
+    width:0%;
     transition:width .4s ease;
   }
   .progress-label{
-    font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--taupe); white-space:nowrap;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--taupe);
+    white-space:nowrap;
   }
 
-  .program{position:relative; padding-left:38px;}
+  .program{
+    position:relative;
+    padding-left:38px;
+  }
   .program::before{
     content:"";
-    position:absolute; left:9px; top:10px; bottom:10px; width:1px;
+    position:absolute;
+    left:9px;
+    top:10px;
+    bottom:10px;
+    width:1px;
     background:linear-gradient(to bottom, var(--gold-dim), var(--card-edge) 90%);
   }
   .round{
@@ -85,17 +106,32 @@
   }
   .round:hover{border-color:var(--gold-dim);}
   .round.done{background:#211c14;}
-  .round.done .num-dot{background:var(--gold); border-color:var(--gold);}
+  .round.done .num-dot{
+    background:var(--gold);
+    border-color:var(--gold);
+  }
   .num-dot{
-    position:absolute; left:-33px; top:24px;
-    width:11px; height:11px; border-radius:50%;
-    background:var(--ink); border:1px solid var(--gold-dim);
+    position:absolute;
+    left:-33px;
+    top:24px;
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:var(--ink);
+    border:1px solid var(--gold-dim);
   }
   .row-top{
-    display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:12px;
+    flex-wrap:wrap;
   }
   .meta{
-    font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--taupe);
+    font-size:10.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--taupe);
   }
   .meta .rd{color:var(--gold);}
   .brand{
@@ -131,13 +167,32 @@
     color:#5c5646;
     font-style:italic;
   }
+
+  .thumb-preview{
+    width:220px;
+    height:220px;
+    overflow:hidden;
+    border:1px solid var(--card-edge);
+    border-radius:2px;
+    margin:10px 0 0 0;
+    background:#120f0a;
+  }
+  .thumb-preview img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <p class="eyebrow">2026</p>
   <h1>Best Designer Bag by Brands (r/handbags Favs)</h1>
-  <p class="sub">Starting <b>Mon, Aug 10</b><br>Last updated: <b id="lastUpdated"></b></p>
+  <p class="sub">
+    Starting <b>Mon, Aug 10</b><br>
+    Last updated: <b id="lastUpdated"></b>
+  </p>
 
   <div class="progress-row">
     <span class="progress-label" id="progressLabel">0 / 25 Completed</span>
@@ -151,31 +206,31 @@
 
 <script>
 const ROUNDS = [
-  { n:1, date:"Mon, Aug 10", brand:"Hermès", winner:"Kelly", image:'<img src="images/IMG_4689.jpg" alt="Winning bag photo">' },
-  {n:2,  date:"Wed, Aug 12", brand:"Chanel", winner:"Placeholder", image:"Photo link here"},
-  {n:3,  date:"Fri, Aug 14", brand:"Dior", winner:"Placeholder", image:"Photo link here"},
-  {n:4,  date:"Sun, Aug 16", brand:"Goyard", winner:"Placeholder", image:"Photo link here"},
-  {n:5,  date:"Tue, Aug 18", brand:"Gucci", winner:"Placeholder", image:"Photo link here"},
-  {n:6,  date:"Thu, Aug 20", brand:"Fendi", winner:"Placeholder", image:"Photo link here"},
-  {n:7,  date:"Sat, Aug 22", brand:"Celine", winner:"Placeholder", image:"Photo link here"},
-  {n:8,  date:"Mon, Aug 24", brand:"Prada", winner:"Placeholder", image:"Photo link here"},
-  {n:9,  date:"Wed, Aug 26", brand:"Bottega Veneta", winner:"Placeholder", image:"Photo link here"},
-  {n:10, date:"Fri, Aug 28", brand:"Louis Vuitton", winner:"Placeholder", image:"Photo link here"},
-  {n:11, date:"Sun, Aug 30", brand:"The Row", winner:"Placeholder", image:"Photo link here"},
-  {n:12, date:"Tue, Sep 1",  brand:"Ferragamo", winner:"Placeholder", image:"Photo link here"},
-  {n:13, date:"Thu, Sep 3",  brand:"Givenchy", winner:"Placeholder", image:"Photo link here"},
-  {n:14, date:"Sat, Sep 5",  brand:"Miu Miu", winner:"Placeholder", image:"Photo link here"},
-  {n:15, date:"Mon, Sep 7",  brand:"Burberry", winner:"Placeholder", image:"Photo link here"},
-  {n:16, date:"Wed, Sep 9",  brand:"YSL", winner:"Placeholder", image:"Photo link here"},
-  {n:17, date:"Fri, Sep 11", brand:"Loewe", winner:"Placeholder", image:"Photo link here"},
-  {n:18, date:"Sun, Sep 13", brand:"Chloé", winner:"Placeholder", image:"Photo link here"},
-  {n:19, date:"Tue, Sep 15", brand:"Tod's", winner:"Placeholder", image:"Photo link here"},
-  {n:20, date:"Thu, Sep 17", brand:"Coach", winner:"Placeholder", image:"Photo link here"},
-  {n:21, date:"Sat, Sep 19", brand:"Polene", winner:"Placeholder", image:"Photo link here"},
-  {n:22, date:"Mon, Sep 21", brand:"Community Pick #1", tbd:true, winner:"Placeholder", image:"Photo link here"},
-  {n:23, date:"Wed, Sep 23", brand:"Community Pick #2", tbd:true, winner:"Placeholder", image:"Photo link here"},
-  {n:24, date:"Fri, Sep 25", brand:"Community Pick #3", tbd:true, winner:"Placeholder", image:"Photo link here"},
-  {n:25, date:"Sun, Sep 27", brand:"Community Pick #4", tbd:true, winner:"Placeholder", image:"Photo link here"},
+  {n:1,  date:"Mon, Aug 10", brand:"Hermès", winner:"Kelly", image:'<img src="images/IMG_4689.jpg" alt="Winning bag photo">'},
+  {n:2,  date:"Wed, Aug 12", brand:"Chanel", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:3,  date:"Fri, Aug 14", brand:"Dior", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:4,  date:"Sun, Aug 16", brand:"Goyard", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:5,  date:"Tue, Aug 18", brand:"Gucci", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:6,  date:"Thu, Aug 20", brand:"Fendi", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:7,  date:"Sat, Aug 22", brand:"Celine", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:8,  date:"Mon, Aug 24", brand:"Prada", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:9,  date:"Wed, Aug 26", brand:"Bottega Veneta", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:10, date:"Fri, Aug 28", brand:"Louis Vuitton", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:11, date:"Sun, Aug 30", brand:"The Row", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:12, date:"Tue, Sep 1",  brand:"Ferragamo", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:13, date:"Thu, Sep 3",  brand:"Givenchy", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:14, date:"Sat, Sep 5",  brand:"Miu Miu", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:15, date:"Mon, Sep 7",  brand:"Burberry", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:16, date:"Wed, Sep 9",  brand:"YSL", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:17, date:"Fri, Sep 11", brand:"Loewe", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:18, date:"Sun, Sep 13", brand:"Chloé", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:19, date:"Tue, Sep 15", brand:"Tod's", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:20, date:"Thu, Sep 17", brand:"Coach", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:21, date:"Sat, Sep 19", brand:"Polene", winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:22, date:"Mon, Sep 21", brand:"Community Pick #1", tbd:true, winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:23, date:"Wed, Sep 23", brand:"Community Pick #2", tbd:true, winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:24, date:"Fri, Sep 25", brand:"Community Pick #3", tbd:true, winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
+  {n:25, date:"Sun, Sep 27", brand:"Community Pick #4", tbd:true, winner:"Placeholder", image:'<img src="" alt="Winning bag photo">'},
 ];
 
 const program = document.getElementById('program');
@@ -184,7 +239,7 @@ const progressLabel = document.getElementById('progressLabel');
 
 function isFilled(value){
   const v = String(value || '').trim();
-  return v && v !== 'Placeholder' && v !== 'Photo link here';
+  return v && v !== 'Placeholder';
 }
 
 function updateProgress(){
@@ -210,7 +265,11 @@ function buildRow(r){
     </div>
     <div class="field">
       <span class="field-label">Photo</span>
-      <span class="placeholder">${r.image}</span>
+      <span class="placeholder">Image displayed below</span>
+    </div>
+
+    <div class="thumb-preview">
+      ${r.image}
     </div>
   `;
   if (isFilled(r.winner)) div.classList.add('done');
