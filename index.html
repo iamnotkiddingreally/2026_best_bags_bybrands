@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>The Best Bag Series — Running Order</title>
+<title>2026 - The Best Bag Series </title>
 <style>
   :root{
     --ink:#15130f;
@@ -143,11 +143,13 @@
 <div class="wrap">
   <p class="eyebrow">2026</p>
   <h1>Best Designer Bag by Brands (r/handbags Favs)</h1>
-  <p class="sub">Running order &amp; results — a new house every 2 days, starting <b>Mon, Aug 10</b></p>
+  <p class="sub">Starting <b>Mon, Aug 10</b> </p>
 
   <div class="progress-row">
     <span class="progress-label" id="progressLabel">0 / 25 decided</span>
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div>
+     <br>
+  Last updated: <b id="lastUpdated"></b></div>
   </div>
 
   <div class="program" id="program"></div>
@@ -219,7 +221,20 @@ function init(){
   updateProgress();
 }
 
+  const lastUpdatedEl = document.getElementById('lastUpdated');
+  const now = new Date();
+
+  const options = {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  };
+
+  lastUpdatedEl.textContent = now.toLocaleDateString('en-US', options);
+
 init();
+  
 </script>
 </body>
 </html>
