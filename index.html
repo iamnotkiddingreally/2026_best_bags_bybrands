@@ -101,7 +101,7 @@
     white-space:nowrap;
   }
 
-  /* Status card */
+  /* Current round and previous winner card */
   .round-status{
     display:flex;
     flex-direction:column;
@@ -160,11 +160,11 @@
     background:var(--card-edge);
   }
 
-  /* Portrait image directly underneath last winner title */
+  /* Smaller portrait image below last winner title */
   .last-winner-image{
-    width:100%;
-    height:auto;
-    aspect-ratio:4 / 5;
+    width:160px;
+    height:200px;
+    margin:0 auto;
     overflow:hidden;
     background:#120f0a;
     border:1px solid var(--card-edge);
@@ -329,9 +329,8 @@
     }
 
     .last-winner-image{
-      width:100%;
-      height:auto;
-      aspect-ratio:4 / 5;
+      width:140px;
+      height:175px;
     }
   }
 </style>
