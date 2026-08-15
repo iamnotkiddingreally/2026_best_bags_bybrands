@@ -1,9 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 - The Best Bag Series</title>
 
 <style>
@@ -18,19 +16,17 @@
     --wine:#7c2f3c;
   }
 
-  *{
-    box-sizing:border-box;
-  }
+  *{box-sizing:border-box;}
 
   body{
     margin:0;
-    padding:56px 20px 80px;
     background:var(--ink);
     background-image:
       radial-gradient(ellipse 900px 500px at 15% -10%, rgba(194,160,106,0.08), transparent 60%),
       radial-gradient(ellipse 700px 500px at 100% 10%, rgba(124,47,60,0.10), transparent 55%);
     color:var(--ivory);
     font-family:'Inter','Helvetica Neue',Arial,sans-serif;
+    padding:56px 20px 80px;
   }
 
   .wrap{
@@ -39,30 +35,30 @@
   }
 
   .eyebrow{
-    margin:0 0 14px;
-    color:var(--gold);
-    font-size:11px;
-    letter-spacing:.28em;
-    text-align:center;
     text-transform:uppercase;
+    letter-spacing:.28em;
+    font-size:11px;
+    color:var(--gold);
+    text-align:center;
+    margin:0 0 14px;
   }
 
   h1{
-    margin:0 0 8px;
-    color:var(--ivory);
     font-family:Didot,'Bodoni MT','Playfair Display',Georgia,serif;
-    font-size:clamp(34px,6vw,54px);
     font-weight:400;
-    letter-spacing:.01em;
+    font-size:clamp(34px,6vw,54px);
     text-align:center;
+    margin:0 0 8px;
+    letter-spacing:.01em;
+    color:var(--ivory);
   }
 
   .sub{
-    margin:0 0 46px;
+    text-align:center;
     color:var(--taupe);
     font-size:14px;
     letter-spacing:.02em;
-    text-align:center;
+    margin:0 0 46px;
   }
 
   .sub b{
@@ -79,69 +75,6 @@
   }
 
   .progress-track{
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>2026 - The Best Bag Series</title>
-<style>
-  :root{
-    --ink:#15130f;
-    --card:#1e1a13;
-    --card-edge:#332c1f;
-    --ivory:#f3ecdc;
-    --taupe:#a79a83;
-    --gold:#c2a06a;
-    --gold-dim:#8a7147;
-    --wine:#7c2f3c;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--ink);
-    background-image:
-      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(194,160,106,0.08), transparent 60%),
-      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(124,47,60,0.10), transparent 55%);
-    color:var(--ivory);
-    font-family:'Inter','Helvetica Neue',Arial,sans-serif;
-    padding:56px 20px 80px;
-  }
-  .wrap{max-width:780px;margin:0 auto;}
-
-  .eyebrow{
-    text-transform:uppercase;
-    letter-spacing:.28em;
-    font-size:11px;
-    color:var(--gold);
-    text-align:center;
-    margin:0 0 14px;
-  }
-  h1{
-    font-family:Didot,'Bodoni MT','Playfair Display',Georgia,serif;
-    font-weight:400;
-    font-size:clamp(34px,6vw,54px);
-    text-align:center;
-    margin:0 0 8px;
-    letter-spacing:.01em;
-    color:var(--ivory);
-  }
-  .sub{
-    text-align:center;
-    color:var(--taupe);
-    font-size:14px;
-    letter-spacing:.02em;
-    margin:0 0 46px;
-  }
-  .sub b{color:var(--ivory); font-weight:600;}
-
-  .progress-row{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    max-width:520px;
-    margin:0 auto 56px;
-  }
-  .progress-track{
     flex:1;
     height:2px;
     background:var(--card-edge);
@@ -149,12 +82,14 @@
     border-radius:2px;
     overflow:hidden;
   }
+
   .progress-fill{
     height:100%;
     background:linear-gradient(90deg,var(--gold-dim),var(--gold));
     width:0%;
     transition:width .4s ease;
   }
+
   .progress-label{
     font-size:11px;
     letter-spacing:.14em;
@@ -163,10 +98,51 @@
     white-space:nowrap;
   }
 
+  /* New: last winner and current round */
+  .round-status{
+    display:flex;
+    align-items:stretch;
+    gap:18px;
+    max-width:520px;
+    margin:0 auto 18px;
+    padding:14px 16px;
+    background:var(--card);
+    border:1px solid var(--card-edge);
+    border-radius:3px;
+  }
+
+  .status-item{
+    flex:1;
+    min-width:0;
+  }
+
+  .status-label{
+    display:block;
+    margin-bottom:5px;
+    color:var(--gold-dim);
+    font-size:9px;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+  }
+
+  .status-value{
+    display:block;
+    color:var(--ivory);
+    font-family:Didot,'Bodoni MT','Playfair Display',Georgia,serif;
+    font-size:17px;
+    line-height:1.25;
+  }
+
+  .status-divider{
+    width:1px;
+    background:var(--card-edge);
+  }
+
   .program{
     position:relative;
     padding-left:38px;
   }
+
   .program::before{
     content:"";
     position:absolute;
@@ -176,21 +152,30 @@
     width:1px;
     background:linear-gradient(to bottom, var(--gold-dim), var(--card-edge) 90%);
   }
+
   .round{
     position:relative;
-    margin-bottom:14px;
+    margin-bottom:5px;
     background:var(--card);
     border:1px solid var(--card-edge);
     border-radius:3px;
     padding:18px 22px 20px 24px;
     transition:border-color .2s ease, background .2s ease;
   }
-  .round:hover{border-color:var(--gold-dim);}
-  .round.done{background:#211c14;}
+
+  .round:hover{
+    border-color:var(--gold-dim);
+  }
+
+  .round.done{
+    background:#211c14;
+  }
+
   .round.done .num-dot{
     background:var(--gold);
     border-color:var(--gold);
   }
+
   .num-dot{
     position:absolute;
     left:-33px;
@@ -201,6 +186,7 @@
     background:var(--ink);
     border:1px solid var(--gold-dim);
   }
+
   .row-top{
     display:flex;
     justify-content:space-between;
@@ -208,13 +194,18 @@
     gap:12px;
     flex-wrap:wrap;
   }
+
   .meta{
     font-size:10.5px;
     letter-spacing:.16em;
     text-transform:uppercase;
     color:var(--taupe);
   }
-  .meta .rd{color:var(--gold);}
+
+  .meta .rd{
+    color:var(--gold);
+  }
+
   .brand{
     font-family:Didot,'Bodoni MT','Playfair Display',Georgia,serif;
     font-size:23px;
@@ -222,13 +213,18 @@
     color:var(--ivory);
     letter-spacing:.01em;
   }
-  .brand.tbd{color:var(--taupe); font-style:italic;}
+
+  .brand.tbd{
+    color:var(--taupe);
+    font-style:italic;
+  }
 
   .field{
     margin-bottom:8px;
     font-size:14px;
     color:var(--ivory);
   }
+
   .field-label{
     font-size:10px;
     letter-spacing:.14em;
@@ -236,6 +232,7 @@
     color:var(--gold-dim);
     margin-right:8px;
   }
+
   .field-label-filled{
     font-size:12px;
     letter-spacing:.14em;
@@ -244,6 +241,7 @@
     margin-right:8px;
     font-weight:600;
   }
+
   .placeholder{
     color:#5c5646;
     font-style:italic;
@@ -258,18 +256,33 @@
     margin:10px 0 0 0;
     background:#120f0a;
   }
+
   .thumb-preview img{
     width:100%;
     height:100%;
     object-fit:cover;
     display:block;
   }
+
+  @media (max-width:560px){
+    .round-status{
+      gap:12px;
+      padding:13px;
+    }
+
+    .status-value{
+      font-size:15px;
+    }
+  }
 </style>
 </head>
+
 <body>
 <div class="wrap">
   <p class="eyebrow">2026</p>
+
   <h1>Best Designer Bag by Brands (r/handbags Favs)</h1>
+
   <p class="sub">
     Started <b>Mon, Aug 10</b><br>
     Last updated: <b id="lastUpdated"></b>
@@ -277,8 +290,23 @@
 
   <div class="progress-row">
     <span class="progress-label" id="progressLabel">0 / 25 Completed</span>
+
     <div class="progress-track">
       <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <div class="round-status">
+    <div class="status-item">
+      <span class="status-label">Last Round Winner</span>
+      <span class="status-value" id="lastWinner">—</span>
+    </div>
+
+    <div class="status-divider"></div>
+
+    <div class="status-item">
+      <span class="status-label">Current Round</span>
+      <span class="status-value" id="currentRound">—</span>
     </div>
   </div>
 
@@ -287,91 +315,129 @@
 
 <script>
 const ROUNDS = [
-  {n:1,  date:"Mon, Aug 10", brand:"Hermès", winner:"Lindy 26", image:'<img src="images/Hermes.webp" alt=" ">'},
-  //{n:1,  date:"Mon, Aug 10", brand:"Hermès", winner:"Placeholder", image:"Image Coming Soon"},
- {n:2,  date:"Thu, Aug 13", brand:"Chanel", winner:"Diana-Small", image:'<img src="images/Chanel.webp" alt=" ">'},
-{n:3,  date:"Sat, Aug 15", brand:"Dior", winner:"Placeholder", image:"Image Coming Soon"},
-{n:4,  date:"Sun, Aug 16", brand:"Goyard", winner:"Placeholder", image:"Image Coming Soon"},
-{n:5,  date:"Mon, Aug 17", brand:"Gucci", winner:"Placeholder", image:"Image Coming Soon"},
-{n:6,  date:"Tue, Aug 18", brand:"Fendi", winner:"Placeholder", image:"Image Coming Soon"},
-{n:7,  date:"Wed, Aug 19", brand:"Celine", winner:"Placeholder", image:"Image Coming Soon"},
-{n:8,  date:"Thu, Aug 20", brand:"Prada", winner:"Placeholder", image:"Image Coming Soon"},
-{n:9,  date:"Fri, Aug 21", brand:"Bottega Veneta", winner:"Placeholder", image:"Image Coming Soon"},
-{n:10, date:"Sat, Aug 22", brand:"Louis Vuitton", winner:"Placeholder", image:"Image Coming Soon"},
-{n:11, date:"Sun, Aug 23", brand:"The Row", winner:"Placeholder", image:"Image Coming Soon"},
-{n:12, date:"Mon, Aug 24", brand:"Ferragamo", winner:"Placeholder", image:"Image Coming Soon"},
-{n:13, date:"Tue, Aug 25", brand:"Miu Miu", winner:"Placeholder", image:"Image Coming Soon"},
-{n:14, date:"Wed, Aug 26", brand:"YSL", winner:"Placeholder", image:"Image Coming Soon"},
-{n:15, date:"Thu, Aug 27", brand:"Loewe", winner:"Placeholder", image:"Image Coming Soon"},
-{n:16, date:"Fri, Aug 28", brand:"Chloé", winner:"Placeholder", image:"Image Coming Soon"},
-{n:17, date:"Sat, Aug 29", brand:"Tod's", winner:"Placeholder", image:"Image Coming Soon"},
-{n:18, date:"Sun, Aug 30", brand:"Coach", winner:"Placeholder", image:"Image Coming Soon"},
-{n:19, date:"Mon, Aug 31", brand:"Polene", winner:"Placeholder", image:"Image Coming Soon"},
-{n:20, date:"Tue, Sep 1",  brand:"Mulberry", winner:"Placeholder", image:"Image Coming Soon"},
-{n:21, date:"Wed, Sep 2",  brand:"Strathberry",  winner:"Placeholder", image:"Image Coming Soon"},
-{n:22, date:"Thu, Sep 3",  brand:"Delvaux",  winner:"Placeholder", image:"Image Coming Soon"},
-{n:23, date:"Fri, Sep 4",  brand:"Acne Studios",  winner:"Placeholder", image:"Image Coming Soon"},
-{n:24, date:"Sat, Sep 5",  brand:"Songmont",  winner:"Placeholder", image:"Image Coming Soon"},
-{n:25, date:"Sun, Sep 6",  brand:"Givenchy",  winner:"Placeholder", image:"Image Coming Soon"},
+  {n:1,  date:"Mon, Aug 10", brand:"Hermès", winner:"Lindy 26", image:'<img src="images/Hermes.webp" alt=" "> '},
+  {n:2,  date:"Thu, Aug 13", brand:"Chanel", winner:"Diana-Small", image:'<img src="images/Chanel.webp" alt=" "> '},
+  {n:3,  date:"Sat, Aug 15", brand:"Dior", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:4,  date:"Sun, Aug 16", brand:"Goyard", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:5,  date:"Mon, Aug 17", brand:"Gucci", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:6,  date:"Tue, Aug 18", brand:"Fendi", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:7,  date:"Wed, Aug 19", brand:"Celine", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:8,  date:"Thu, Aug 20", brand:"Prada", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:9,  date:"Fri, Aug 21", brand:"Bottega Veneta", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:10, date:"Sat, Aug 22", brand:"Louis Vuitton", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:11, date:"Sun, Aug 23", brand:"The Row", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:12, date:"Mon, Aug 24", brand:"Ferragamo", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:13, date:"Tue, Aug 25", brand:"Miu Miu", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:14, date:"Wed, Aug 26", brand:"YSL", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:15, date:"Thu, Aug 27", brand:"Loewe", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:16, date:"Fri, Aug 28", brand:"Chloé", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:17, date:"Sat, Aug 29", brand:"Tod's", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:18, date:"Sun, Aug 30", brand:"Coach", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:19, date:"Mon, Aug 31", brand:"Polene", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:20, date:"Tue, Sep 1", brand:"Mulberry", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:21, date:"Wed, Sep 2", brand:"Strathberry", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:22, date:"Thu, Sep 3", brand:"Delvaux", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:23, date:"Fri, Sep 4", brand:"Acne Studios", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:24, date:"Sat, Sep 5", brand:"Songmont", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:25, date:"Sun, Sep 6", brand:"Givenchy", winner:"Placeholder", image:"Image Coming Soon"}
 ];
 
-const program = document.getElementById('program');
-const progressFill = document.getElementById('progressFill');
-const progressLabel = document.getElementById('progressLabel');
+const program = document.getElementById("program");
+const progressFill = document.getElementById("progressFill");
+const progressLabel = document.getElementById("progressLabel");
+const lastWinner = document.getElementById("lastWinner");
+const currentRound = document.getElementById("currentRound");
 
 function isFilled(value){
-  const v = String(value || '').trim();
-  return v && v !== 'Placeholder';
+  const v = String(value || "").trim();
+  return v && v !== "Placeholder";
 }
 
 function updateProgress(){
   const filled = ROUNDS.filter(r => isFilled(r.winner)).length;
+
   progressLabel.textContent = `${filled} / ${ROUNDS.length} Completed`;
   progressFill.style.width = `${(filled / ROUNDS.length) * 100}%`;
 }
 
+function updateRoundStatus(){
+  const completedRounds = ROUNDS.filter(r => isFilled(r.winner));
+  const nextRound = ROUNDS.find(r => !isFilled(r.winner));
+
+  if(completedRounds.length > 0){
+    const latestCompleted = completedRounds[completedRounds.length - 1];
+
+    lastWinner.textContent =
+      `Round ${latestCompleted.n}: ${latestCompleted.brand} — ${latestCompleted.winner}`;
+  } else {
+    lastWinner.textContent = "No winner yet";
+  }
+
+  if(nextRound){
+    currentRound.textContent =
+      `Round ${nextRound.n}: ${nextRound.brand}`;
+  } else {
+    currentRound.textContent = "Series complete";
+  }
+}
+
 function buildRow(r){
-  const div = document.createElement('div');
-  div.className = 'round';
-  div.id = 'round-' + r.n;
+  const div = document.createElement("div");
+
+  div.className = "round";
+  div.id = "round-" + r.n;
+
   div.innerHTML = `
     <span class="num-dot"></span>
+
     <div class="row-top">
-      <span class="meta"><span class="rd">Round ${r.n}</span> · ${r.date}</span>
+      <span class="meta">
+        <span class="rd">Round ${r.n}</span> · ${r.date}
+      </span>
     </div>
-    <div class="brand ${r.tbd ? 'tbd' : ''}">${r.brand}</div>
+
+    <div class="brand ${r.tbd ? "tbd" : ""}">
+      ${r.brand}
+    </div>
 
     <div class="field">
       <span class="field-label">Winner</span>
       <span class="field-label-filled">${r.winner}</span>
     </div>
-   
+
     <div class="thumb-preview">
       ${r.image}
     </div>
   `;
-  if (isFilled(r.winner)) div.classList.add('done');
+
+  if(isFilled(r.winner)){
+    div.classList.add("done");
+  }
+
   return div;
 }
 
 function updateLastUpdated(){
-  const lastUpdatedEl = document.getElementById('lastUpdated');
+  const lastUpdatedEl = document.getElementById("lastUpdated");
   const now = new Date();
-  lastUpdatedEl.textContent = now.toLocaleDateString('en-US', {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric'
+
+  lastUpdatedEl.textContent = now.toLocaleDateString("en-US", {
+    weekday:"short",
+    month:"short",
+    day:"numeric",
+    year:"numeric"
   });
 }
 
 function init(){
   ROUNDS.forEach(r => program.appendChild(buildRow(r)));
+
   updateProgress();
+  updateRoundStatus();
   updateLastUpdated();
 }
 
 init();
 </script>
 </body>
-</html> -->
+</html>
