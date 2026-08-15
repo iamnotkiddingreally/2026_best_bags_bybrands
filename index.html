@@ -101,7 +101,7 @@
     white-space:nowrap;
   }
 
-  /* Status card: current round on top, last winner below */
+  /* Status card */
   .round-status{
     display:flex;
     flex-direction:column;
@@ -126,17 +126,15 @@
 
   .last-status{
     display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
+    flex-direction:column;
+    align-items:stretch;
+    gap:12px;
   }
 
   .last-status-copy{
     display:flex;
-    flex:1;
     flex-direction:column;
     gap:6px;
-    min-width:0;
   }
 
   .status-label{
@@ -162,10 +160,11 @@
     background:var(--card-edge);
   }
 
+  /* Portrait image directly underneath last winner title */
   .last-winner-image{
-    flex:0 0 72px;
-    width:72px;
-    height:72px;
+    width:100%;
+    height:auto;
+    aspect-ratio:4 / 5;
     overflow:hidden;
     background:#120f0a;
     border:1px solid var(--card-edge);
@@ -288,11 +287,6 @@
     text-transform:uppercase;
   }
 
-  .placeholder{
-    color:#5c5646;
-    font-style:italic;
-  }
-
   .thumb-preview{
     width:220px;
     height:220px;
@@ -335,9 +329,9 @@
     }
 
     .last-winner-image{
-      flex-basis:62px;
-      width:62px;
-      height:62px;
+      width:100%;
+      height:auto;
+      aspect-ratio:4 / 5;
     }
   }
 </style>
@@ -385,181 +379,31 @@
 
 <script>
 const ROUNDS = [
-  {
-    n:1,
-    date:"Mon, Aug 10",
-    brand:"Hermès",
-    winner:"Lindy 26",
-    image:'<img src="images/Hermes.webp" alt="Hermès Lindy 26">'
-  },
-  {
-    n:2,
-    date:"Thu, Aug 13",
-    brand:"Chanel",
-    winner:"Diana-Small",
-    image:'<img src="images/Chanel.webp" alt="Chanel Diana Small">'
-  },
-  {
-    n:3,
-    date:"Sat, Aug 15",
-    brand:"Dior",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:4,
-    date:"Sun, Aug 16",
-    brand:"Goyard",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:5,
-    date:"Mon, Aug 17",
-    brand:"Gucci",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:6,
-    date:"Tue, Aug 18",
-    brand:"Fendi",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:7,
-    date:"Wed, Aug 19",
-    brand:"Celine",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:8,
-    date:"Thu, Aug 20",
-    brand:"Prada",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:9,
-    date:"Fri, Aug 21",
-    brand:"Bottega Veneta",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:10,
-    date:"Sat, Aug 22",
-    brand:"Louis Vuitton",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:11,
-    date:"Sun, Aug 23",
-    brand:"The Row",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:12,
-    date:"Mon, Aug 24",
-    brand:"Ferragamo",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:13,
-    date:"Tue, Aug 25",
-    brand:"Miu Miu",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:14,
-    date:"Wed, Aug 26",
-    brand:"YSL",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:15,
-    date:"Thu, Aug 27",
-    brand:"Loewe",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:16,
-    date:"Fri, Aug 28",
-    brand:"Chloé",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:17,
-    date:"Sat, Aug 29",
-    brand:"Tod's",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:18,
-    date:"Sun, Aug 30",
-    brand:"Coach",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:19,
-    date:"Mon, Aug 31",
-    brand:"Polene",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:20,
-    date:"Tue, Sep 1",
-    brand:"Mulberry",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:21,
-    date:"Wed, Sep 2",
-    brand:"Strathberry",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:22,
-    date:"Thu, Sep 3",
-    brand:"Delvaux",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:23,
-    date:"Fri, Sep 4",
-    brand:"Acne Studios",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:24,
-    date:"Sat, Sep 5",
-    brand:"Songmont",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  },
-  {
-    n:25,
-    date:"Sun, Sep 6",
-    brand:"Givenchy",
-    winner:"Placeholder",
-    image:"Image Coming Soon"
-  }
+  {n:1, date:"Mon, Aug 10", brand:"Hermès", winner:"Lindy 26", image:'<img src="images/Hermes.webp" alt="Hermès Lindy 26">'},
+  {n:2, date:"Thu, Aug 13", brand:"Chanel", winner:"Diana-Small", image:'<img src="images/Chanel.webp" alt="Chanel Diana Small">'},
+  {n:3, date:"Sat, Aug 15", brand:"Dior", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:4, date:"Sun, Aug 16", brand:"Goyard", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:5, date:"Mon, Aug 17", brand:"Gucci", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:6, date:"Tue, Aug 18", brand:"Fendi", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:7, date:"Wed, Aug 19", brand:"Celine", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:8, date:"Thu, Aug 20", brand:"Prada", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:9, date:"Fri, Aug 21", brand:"Bottega Veneta", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:10, date:"Sat, Aug 22", brand:"Louis Vuitton", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:11, date:"Sun, Aug 23", brand:"The Row", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:12, date:"Mon, Aug 24", brand:"Ferragamo", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:13, date:"Tue, Aug 25", brand:"Miu Miu", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:14, date:"Wed, Aug 26", brand:"YSL", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:15, date:"Thu, Aug 27", brand:"Loewe", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:16, date:"Fri, Aug 28", brand:"Chloé", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:17, date:"Sat, Aug 29", brand:"Tod's", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:18, date:"Sun, Aug 30", brand:"Coach", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:19, date:"Mon, Aug 31", brand:"Polene", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:20, date:"Tue, Sep 1", brand:"Mulberry", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:21, date:"Wed, Sep 2", brand:"Strathberry", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:22, date:"Thu, Sep 3", brand:"Delvaux", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:23, date:"Fri, Sep 4", brand:"Acne Studios", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:24, date:"Sat, Sep 5", brand:"Songmont", winner:"Placeholder", image:"Image Coming Soon"},
+  {n:25, date:"Sun, Sep 6", brand:"Givenchy", winner:"Placeholder", image:"Image Coming Soon"}
 ];
 
 const program = document.getElementById("program");
